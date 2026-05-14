@@ -1,21 +1,40 @@
-import { useState } from "react";
-import { createRoot } from "react-dom/client";
 import "./App.css";
+import SavedHeader from "./components/SavedHeader.jsx";
 import HomeHeader from "./components/HomeHeader.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import WordInfo from "./components/WordInfo.jsx";
 import WordList from "./components/WordList.jsx";
+import recent from "./assets/recent.svg";
+import heart from "./assets/heart.svg";
+
+const recentWords = ["ephemeral", "serendipity", "translent"];
+const savedWords = ["resilient", "eloquent", "enduring"];
 
 function App() {
   return (
     <>
       <HomeHeader />
-      <SearchBar />
-      <WordInfo />
-      <div className="flex">
-        <WordList title="Recent" />
-        <WordList title="Saved" />
-      </div>
+      <main className="flex flex-col items-center w-full px-4">
+        <SearchBar />
+        <WordInfo />
+        <div className="flex w-full gap-2">
+          <WordList
+            title="Recent"
+            icon={recent}
+            color="var(--primary-color-light)"
+            words={recentWords}
+          />
+          <WordList
+            title="Saved"
+            icon={heart}
+            color="var(--antonym-light)"
+            words={savedWords}
+          />
+        </div>
+      </main>
+      <main className="flex flex-col items-center w-full px-4">
+        <SavedHeader />
+      </main>
     </>
   );
 }

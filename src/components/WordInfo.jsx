@@ -2,9 +2,9 @@ import play from "../assets/play.svg";
 
 export default function WordInfo() {
   return (
-    <section className="bg-[var(--surface-color-light)] mt-6 p-4 m-4 rounded">
+    <section className="bg-[var(--surface-color-light)] w-full my-8 p-4 border border-[var(--border-light)] rounded-lg">
       <h1 className="text-4xl font-bold">ephemeral</h1>
-      <p className="">/ɪˈfɛm.ər.əl/</p>
+      <p className="text-[var(--soft-text-light)]">/ɪˈfɛm.ər.əl/</p>
 
       <span className="inline-block font-bold text-[var(--primary-color-light)] bg-[var(--secondary-text-light)] py-1 px-3 rounded-full mt-4">
         adjective
@@ -17,7 +17,7 @@ export default function WordInfo() {
       <p className="mt-4">
         Lasting for a very short time; transitory in nature.
       </p>
-      <p className="mt-2 italic">
+      <p className="mt-2 italic font-bold text-[var(--soft-text-light)]">
         "The ephemeral beauty of cherry blossoms draws crowds every spring."
       </p>
       <div

@@ -3,7 +3,7 @@ import dice from "../assets/dice.svg";
 
 export default function SearchBar() {
   return (
-    <div className="flex gap-2 bg-[var(--surface-color-light)] mt-6 p-4 m-4 rounded">
+    <div className="flex w-full gap-2 bg-[var(--surface-color-light)] mt-8 p-4 border border-[var(--border-light)] rounded-lg">
       <img src={search} alt="Search a word." />
       <input
         type="text"

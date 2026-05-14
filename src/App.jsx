@@ -1,4 +1,5 @@
 import "./App.css";
+import SavedHeader from "./components/SavedHeader.jsx";
 import HomeHeader from "./components/HomeHeader.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import WordInfo from "./components/WordInfo.jsx";
@@ -30,6 +31,9 @@ function App() {
             words={savedWords}
           />
         </div>
+      </main>
+      <main className="flex flex-col items-center w-full px-4">
+        <SavedHeader />
       </main>
     </>
   );

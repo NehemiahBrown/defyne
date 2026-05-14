@@ -1,7 +1,23 @@
-export default function WordList({ title }) {
+export default function WordList({ title, icon, color, words }) {
   return (
-    <section className="bg-[var(--surface-color-light)] mt-6 p-4 m-4 rounded">
-      <h2>{title}</h2>
+    <section className="bg-[var(--surface-color-light)] flex-1 p-4 border border-[var(--border-light)] rounded-lg">
+      <div className="flex flex-start gap-2">
+        <img src={icon} className="w-4" />
+        <h2 className="font-bold text-[var(--soft-text-light)]">{title}</h2>
+      </div>
+      <div>
+        <ul className="list-disc pl-5 mt-3" style={{ "--marker-color": color }}>
+          {words.map((word) => (
+            <li
+              key={word}
+              style={{ color: "var(--soft-text-light)" }}
+              className="marker:text-[var(--marker-color)]"
+            >
+              {word}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

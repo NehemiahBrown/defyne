@@ -1,7 +1,7 @@
-import leftArrow from "../assets/leftarrow.svg";
 import { Fragment } from "react";
+import leftArrow from "../assets/leftarrow.svg";
 
-export default function SavedHeader() {
+export default function RecentHeader() {
   return (
     <Fragment>
       <header className="flex justify-between items-center w-full my-4 w-full px-4">
@@ -10,10 +10,10 @@ export default function SavedHeader() {
             className="w-8 border border-[var(--border-light)] rounded p-1"
             src={leftArrow}
           />
-          <h1 className="font-bold">Saved words</h1>
+          <h1 className="font-bold">Recent words</h1>
         </div>
         <span className="border border-[var(--border-medium)] rounded-xl py-0.2 px-2 font-bold text-[var(--primary-color-light)] bg-[var(--secondary-text-light)]/30">
-          12 words
+          8 words
         </span>
       </header>
     </Fragment>

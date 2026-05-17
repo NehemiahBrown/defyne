@@ -12,6 +12,7 @@ import SavedWords from "./components/SavedWords.jsx";
 
 import RecentHeader from "./components/RecentHeader.jsx";
 import RecentInfo from "./components/RecentInfo.jsx";
+import RecentWords from "./components/RecentWords.jsx";
 
 import recent from "./assets/recent.svg";
 import heart from "./assets/heart.svg";
@@ -56,9 +57,10 @@ function App() {
         />
       </main>
 
-      <main className="flex flex-col items-center w-full px-4">
+      <main className="flex flex-col w-full px-4">
         <RecentHeader />
         <RecentInfo />
+        <RecentWords />
       </main>
     </>
   );

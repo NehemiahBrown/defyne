@@ -14,6 +14,19 @@
   --antonym-light: #d83b3b;
   --search-bar: #30302e;
 
+  --wc-adj-bg: #ebf0fc;
+  --wc-adj-text: #185fa5;
+  --wc-noun-bg: #fef4e6;
+  --wc-noun-text: #8a5010;
+  --wc-verb-bg: #e8f9f3;
+  --wc-verb-text: #0a7040;
+  --wc-adv-bg: #f0eefe;
+  --wc-adv-text: #4a35a0;
+  --wc-int-bg: #fef0f3;
+  --wc-int-text: #8a1a38;
+  --wc-default-bg: #f4f6fa;
+  --wc-default-text: #4a5a7a;
+
   /* Dark Mode */
   --background-color-dark: #0e0f1a;
   --surface-color-dark: rgba(255, 255, 255, 0.05);
@@ -34,4 +47,8 @@ body {
   min-height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.wordClassName {
+  background-color: #0e0f1a;
 }

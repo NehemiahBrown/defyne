@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 
 import HomeHeader from "./components/HomeHeader.jsx";
 import SearchBar from "./components/SearchBar.jsx";
@@ -17,16 +18,43 @@ import RecentWords from "./components/RecentWords.jsx";
 import recent from "./assets/recent.svg";
 import heart from "./assets/heart.svg";
 
-const recentWords = ["ephemeral", "serendipity", "translent"];
-const savedWords = ["resilient", "eloquent", "enduring"];
+const recentWords = [];
+const savedWords = [];
+
+// Variables
 
 function App() {
+  const [homeSearchBar, setHomeSearchBar] = useState("");
+  const [wordData, setWordData] = useState(null);
+
+  async function searchWord(e) {
+    e.preventDefault();
+    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${homeSearchBar}`;
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setWordData(result);
+      console.log(result);
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   return (
     <>
       <HomeHeader />
       <main className="flex flex-col items-center w-full px-4">
-        <SearchBar />
-        <WordInfo />
+        <SearchBar
+          homeSearchBar={homeSearchBar}
+          setHomeSearchBar={setHomeSearchBar}
+          searchWord={searchWord}
+        />
+        <WordInfo wordData={wordData} />
         <div className="flex w-full gap-2">
           <WordList
             title="Recent"

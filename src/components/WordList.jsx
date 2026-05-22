@@ -7,7 +7,7 @@ export default function WordList({ title, icon, color, words }) {
       </div>
       <div>
         <ul className="list-disc pl-5 mt-3" style={{ "--marker-color": color }}>
-          {words.map((word) => (
+          {words?.slice(0, 5).map((word) => (
             <li
               key={word}
               style={{ color: "var(--soft-text-light)" }}

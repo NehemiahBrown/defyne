@@ -13,18 +13,23 @@ export default function SearchBar({
       id="homeSearchBar"
       name="homeSearchBar"
     >
-      <img src={search} alt="Search a word." />
+      <img
+        onClick={searchWord}
+        className="cursor-pointer hover:scale-115 active:scale-115"
+        src={search}
+        alt="Search a word."
+      />
       <input
         type="text"
         placeholder="Search a word..."
-        className="w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-light-text)] placeholder:text-[var(--secondary-text-light)] p-2"
+        className="text-[var(--primary-text-dark)] w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-light-text)] placeholder:text-[var(--secondary-text-light)] p-2"
         value={homeSearchBar}
         onChange={(e) => setHomeSearchBar(e.target.value)}
       ></input>
       <img
         src={dice}
         alt="Search a random word."
-        className="w-8 border border-[var(--border-light)] rounded p-1"
+        className="cursor-pointer hover:scale-105 w-8 border border-[var(--border-light)] rounded p-1"
       />
     </form>
   );

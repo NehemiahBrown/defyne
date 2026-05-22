@@ -1,25 +1,29 @@
 import play from "../assets/play.svg";
+import heart from "../assets/heart.svg";
 import "../App.css";
 
-export default function WordInfo({ wordData }) {
+export default function WordInfo({ wordData, favoriteWord }) {
   const wordClass = wordData?.[0]?.meanings;
   const antonyms = wordData?.[0]?.meanings?.[0]?.antonyms;
   const synonyms = wordData?.[0]?.meanings?.[0]?.synonyms;
+  const audioUrl = wordData?.[0]?.phonetics?.[0]?.audio;
 
   function playPronounciation() {
-    const audioUrl = wordData?.[0]?.phonetics?.[0]?.audio;
-
-    if (audioUrl) {
-      const pronounciation = new Audio(audioUrl);
-      pronounciation.play();
-    } else {
-      console.log("nooooo");
-    }
+    const pronounciation = new Audio(audioUrl);
+    pronounciation.play();
   }
 
   return (
     <section className="bg-[var(--surface-color-light)] w-full my-8 p-4 border border-[var(--border-light)] rounded-lg">
-      <h1 className="text-4xl font-bold">{wordData?.[0]?.word}</h1>
+      <div className="flex justify-between">
+        <h1 className="text-4xl font-bold">{wordData?.[0]?.word}</h1>
+        <img
+          onClick={favoriteWord}
+          className="w-8 border border-[var(--border-light)] rounded-lg p-1"
+          src={heart}
+          alt="Favorite a song."
+        />
+      </div>
       <p className="text-[var(--soft-text-light)]">
         {wordData?.[0]?.phonetics?.[1]?.text}
       </p>
@@ -52,13 +56,15 @@ export default function WordInfo({ wordData }) {
         })}
       </div>
 
-      <button
-        onClick={playPronounciation}
-        className="flex gap-2 px-3 py-2 mt-4 border rounded-lg"
-      >
-        <img src={play} alt="Play pronunciation." className="w-3 font-bold" />
-        <span>Play pronounciation</span>
-      </button>
+      {audioUrl && (
+        <button
+          onClick={playPronounciation}
+          className="flex gap-2 px-3 py-2 mt-4 border rounded-lg"
+        >
+          <img src={play} alt="Play pronunciation." className="w-3 font-bold" />
+          <span>Play pronounciation</span>
+        </button>
+      )}
       <p className="mt-4">{wordClass?.[0]?.definitions?.[0]?.definition}</p>
       <p className="mt-2 italic font-bold text-[var(--soft-text-light)]">
         {wordClass?.[0]?.definitions?.[0]?.example}

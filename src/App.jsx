@@ -5,6 +5,7 @@ import HomeHeader from "./components/HomeHeader.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import WordInfo from "./components/WordInfo.jsx";
 import WordList from "./components/WordList.jsx";
+import WordPlaceholder from "./components/WordPlaceholder.jsx";
 
 import SavedHeader from "./components/SavedHeader.jsx";
 import SavedSearchBar from "./components/SavedSearchBar.jsx";
@@ -18,14 +19,19 @@ import RecentWords from "./components/RecentWords.jsx";
 import recent from "./assets/recent.svg";
 import heart from "./assets/heart.svg";
 
-const recentWords = [];
-const savedWords = [];
-
 // Variables
 
 function App() {
   const [homeSearchBar, setHomeSearchBar] = useState("");
   const [wordData, setWordData] = useState(null);
+  const [recentWords, setRecentWords] = useState([]);
+  const [savedWords, setSavedWords] = useState([]);
+
+  function favoriteWord() {
+    setSavedWords((current) => {
+      return [...current, wordData[0].word];
+    });
+  }
 
   async function searchWord(e) {
     e.preventDefault();
@@ -39,7 +45,12 @@ function App() {
 
       const result = await response.json();
       setWordData(result);
-      console.log(result);
+
+      setRecentWords((current) => {
+        return [homeSearchBar.toLowerCase(), ...current];
+      });
+
+      console.log(recentWords);
     } catch (error) {
       console.error(error.message);
     }
@@ -54,7 +65,11 @@ function App() {
           setHomeSearchBar={setHomeSearchBar}
           searchWord={searchWord}
         />
-        <WordInfo wordData={wordData} />
+        {wordData ? (
+          <WordInfo favoriteWord={favoriteWord} wordData={wordData} />
+        ) : (
+          <WordPlaceholder />
+        )}
         <div className="flex w-full gap-2">
           <WordList
             title="Recent"

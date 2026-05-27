@@ -30,6 +30,7 @@ function App() {
   const [recentWords, setRecentWords] = useState([]);
   const [savedWords, setSavedWords] = useState([]);
   const [view, setView] = useState("home");
+  const [wordObjects, setWordObjects] = useState([])
 
   function createWordObject(apiData) {
     return {
@@ -44,6 +45,10 @@ function App() {
     };
   }
   function favoriteWord() {
+    setWordObjects((current) => {
+      return [...current, wordData]
+    })
+
     setSavedWords((current) => {
       return [...current, wordData.word];
     });
@@ -71,6 +76,8 @@ function App() {
     }
   }
 
+
+
   return (
     <>
       <HomeHeader className="w-full" view={view} setView={setView} />
@@ -84,11 +91,11 @@ function App() {
               searchWord={searchWord}
             />
             {wordData ? (
-              <WordInfo favoriteWord={favoriteWord} wordData={wordData} />
+              <WordInfo favoriteWord={favoriteWord} wordData={wordData}/>
             ) : (
               <WordPlaceholder />
             )}
-            <div className="flex  flex-col sm:flex-row w-full gap-2">
+            <div className="flex flex-col sm:flex-row w-full gap-2">
               <WordList
                 title="Recent"
                 icon={recent}
@@ -111,12 +118,7 @@ function App() {
             <SavedSearchBar />
             <WordClassesSaved />
             <SavedWords
-              word="ephemeral"
-              wordClass="adjective"
-              pronounciation="/ɪˈfɛm.ər.əl/"
-              sentence="Lasting for a very short time; transitory in nature."
-              synonym="translent"
-              antonym="permanent"
+           wordObjects={wordObjects}
             />
           </>
         )}

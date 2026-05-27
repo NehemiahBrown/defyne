@@ -2,21 +2,22 @@ import play from "../assets/play.svg";
 import heart from "../assets/heart.svg";
 import "../App.css";
 
-export default function WordInfo({ wordData, favoriteWord }) {
+export default function WordInfo({ wordData, favoriteWord}) {
   const wordClasses = wordData.wordClasses;
   const antonyms = wordData.antonyms;
   const synonyms = wordData.synonyms;
   const audioUrl = wordData.pronounciationAudio;
+  const word = wordData.word;
 
   function playPronounciation() {
-    const pronounciation = new Audio(wordData.pronounciationAudio);
+    const pronounciation = new Audio(audioUrl);
     pronounciation.play();
   }
 
   return (
     <section className="bg-[var(--surface-color-light)] w-full min-w-0 my-8 p-4 border border-[var(--border-light)] rounded-lg">
       <div className="flex justify-between">
-        <h1 className="text-4xl font-bold">{wordData.word}</h1>
+        <h1 className="text-4xl font-bold">{word}</h1>
         <img
           onClick={favoriteWord}
           className="w-8 border border-[var(--border-light)] rounded-lg p-1"
@@ -73,16 +74,21 @@ export default function WordInfo({ wordData, favoriteWord }) {
         id="antonyms-synonyms"
         className=" flex flex-wrap justify-start gap-2 md:justify-start mt-4"
       >
-        {synonyms?.slice(0, 2).map((word) => {
+        {synonyms?.slice(0, 2).map((word, index) => {
           return (
-            <span className="font-bold text-sm text-[var(--primary-color-light)] bg-[var(--secondary-text-light)]/30 py-1 px-3 rounded-lg border border-[var(--secondary-text-light)]">
+            
+            <span 
+            key={`${word.synonym} - ${index}`}
+            className="font-bold text-sm text-[var(--primary-color-light)] bg-[var(--secondary-text-light)]/30 py-1 px-3 rounded-lg border border-[var(--secondary-text-light)]">
               {word}
             </span>
           );
         })}
-        {antonyms?.slice(0, 2).map((word) => {
+        {antonyms?.slice(0, 2).map((word, index) => {
           return (
-            <span className="font-bold text-sm text-[var(--antonym-light)] bg-[var(--antonym-light)]/30 py-1 px-3 rounded-lg border border-[var(--antonym-light)]">
+            <span 
+            key={`${word.antonym} - ${index}`}
+            className="font-bold text-sm text-[var(--antonym-light)] bg-[var(--antonym-light)]/30 py-1 px-3 rounded-lg border border-[var(--antonym-light)]">
               {word}
             </span>
           );

@@ -1,5 +1,4 @@
 import search from "../assets/search.svg";
-import dice from "../assets/dice.svg";
 
 export default function SearchBar({
   searchWord,
@@ -26,11 +25,6 @@ export default function SearchBar({
         value={homeSearchBar}
         onChange={(e) => setHomeSearchBar(e.target.value)}
       ></input>
-      <img
-        src={dice}
-        alt="Search a random word."
-        className="cursor-pointer hover:scale-105 w-8 border border-[var(--border-light)] rounded p-1"
-      />
     </form>
   );
 }

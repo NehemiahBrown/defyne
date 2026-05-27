@@ -42,7 +42,7 @@ function App() {
   }
   function favoriteWord() {
     setSavedWords((current) => {
-      return [...current, wordData];
+      return [...current, wordData.word];
     });
   }
 
@@ -70,8 +70,9 @@ function App() {
 
   return (
     <>
-      <main className="flex flex-col items-center w-full max-w-full">
-        <HomeHeader className="w-full" view={view} setView={setView} />
+      <HomeHeader className="w-full" view={view} setView={setView} />
+
+      <main className="flex flex-col items-center px-4 w-full max-w-full">
         {view === "home" && (
           <>
             <SearchBar

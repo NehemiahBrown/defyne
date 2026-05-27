@@ -21,7 +21,7 @@ export default function WordInfo({ wordData, favoriteWord }) {
           onClick={favoriteWord}
           className="w-8 border border-[var(--border-light)] rounded-lg p-1"
           src={heart}
-          alt="Favorite a song."
+          alt="Favorite a word."
         />
       </div>
       <p className="text-[var(--soft-text-light)]">

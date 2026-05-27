@@ -1,7 +1,6 @@
 import "./App.css";
 import { useState } from "react";
 
-import Navigation from "./components/Navigation.jsx";
 import HomeHeader from "./components/HomeHeader.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import WordInfo from "./components/WordInfo.jsx";
@@ -71,9 +70,8 @@ function App() {
 
   return (
     <>
-      <main className="flex flex-col items-center w-full max-w-full px-4">
-        <HomeHeader />
-        <Navigation view={view} setView={setView} />
+      <main className="flex flex-col items-center w-full max-w-full">
+        <HomeHeader className="w-full" view={view} setView={setView} />
         {view === "home" && (
           <>
             <SearchBar

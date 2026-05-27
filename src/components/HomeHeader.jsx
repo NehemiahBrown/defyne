@@ -5,7 +5,7 @@ import lightmode from "../assets/sun.svg";
 export default function HomeHeader() {
   return (
     <>
-      <header className="flex justify-between items-center bg-[var(--surface-color-light)] p-6 h-12">
+      <header className="flex justify-between items-center w-full bg-[var(--surface-color-light)] p-6 h-12">
         <div>
           <a className="text-xl">defyne.</a>
         </div>

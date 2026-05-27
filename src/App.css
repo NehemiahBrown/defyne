@@ -40,7 +40,9 @@
 * {
   box-sizing: border-box;
 }
-body {
+html,
+body,
+#root {
   font-family: "Inter", sans-serif;
   background-color: var(--background-color-light);
   width: 100%;

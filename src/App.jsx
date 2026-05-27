@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 
+import Navigation from "./components/Navigation.jsx";
 import HomeHeader from "./components/HomeHeader.jsx";
 import SearchBar from "./components/SearchBar.jsx";
 import WordInfo from "./components/WordInfo.jsx";
@@ -26,10 +27,23 @@ function App() {
   const [wordData, setWordData] = useState(null);
   const [recentWords, setRecentWords] = useState([]);
   const [savedWords, setSavedWords] = useState([]);
+  const [view, setView] = useState("home");
 
+  function createWordObject(apiData) {
+    return {
+      word: apiData?.[0]?.word,
+      pronounciationText: apiData?.[0]?.phonetics?.[0]?.text,
+      wordClasses: apiData?.[0]?.meanings || [],
+      pronounciationAudio: apiData?.[0]?.phonetics?.[0]?.audio,
+      definition: apiData?.[0]?.meanings?.[0]?.definitions?.[0]?.definition,
+      sentence: apiData?.[0]?.meanings?.[0]?.definitions?.[0]?.example,
+      synonyms: apiData?.[0]?.meanings?.[0]?.synonyms || [],
+      antonyms: apiData?.[0]?.meanings?.[0]?.antonyms || [],
+    };
+  }
   function favoriteWord() {
     setSavedWords((current) => {
-      return [...current, wordData[0].word];
+      return [...current, wordData];
     });
   }
 
@@ -44,13 +58,12 @@ function App() {
       }
 
       const result = await response.json();
-      setWordData(result);
-
+      const usedWordData = createWordObject(result);
+      setWordData(usedWordData);
+      console.log(usedWordData);
       setRecentWords((current) => {
         return [homeSearchBar.toLowerCase(), ...current];
       });
-
-      console.log(recentWords);
     } catch (error) {
       console.error(error.message);
     }
@@ -58,52 +71,60 @@ function App() {
 
   return (
     <>
-      <HomeHeader />
-      <main className="flex flex-col items-center w-full px-4">
-        <SearchBar
-          homeSearchBar={homeSearchBar}
-          setHomeSearchBar={setHomeSearchBar}
-          searchWord={searchWord}
-        />
-        {wordData ? (
-          <WordInfo favoriteWord={favoriteWord} wordData={wordData} />
-        ) : (
-          <WordPlaceholder />
+      <main className="flex flex-col items-center w-full max-w-full px-4">
+        <HomeHeader />
+        <Navigation view={view} setView={setView} />
+        {view === "home" && (
+          <>
+            <SearchBar
+              homeSearchBar={homeSearchBar}
+              setHomeSearchBar={setHomeSearchBar}
+              searchWord={searchWord}
+            />
+            {wordData ? (
+              <WordInfo favoriteWord={favoriteWord} wordData={wordData} />
+            ) : (
+              <WordPlaceholder />
+            )}
+            <div className="flex  flex-col sm:flex-row w-full gap-2">
+              <WordList
+                title="Recent"
+                icon={recent}
+                color="var(--primary-color-light)"
+                words={recentWords}
+              />
+              <WordList
+                title="Saved"
+                icon={heart}
+                color="var(--antonym-light)"
+                words={savedWords}
+              />
+            </div>
+          </>
         )}
-        <div className="flex w-full gap-2">
-          <WordList
-            title="Recent"
-            icon={recent}
-            color="var(--primary-color-light)"
-            words={recentWords}
-          />
-          <WordList
-            title="Saved"
-            icon={heart}
-            color="var(--antonym-light)"
-            words={savedWords}
-          />
-        </div>
-      </main>
 
-      <main className="flex flex-col items-center w-full px-4">
-        <SavedHeader />
-        <SavedSearchBar />
-        <WordClassesSaved />
-        <SavedWords
-          word="ephemeral"
-          wordClass="adjective"
-          pronounciation="/ɪˈfɛm.ər.əl/"
-          sentence="Lasting for a very short time; transitory in nature."
-          synonym="translent"
-          antonym="permanent"
-        />
-      </main>
-
-      <main className="flex flex-col w-full px-4">
-        <RecentHeader />
-        <RecentInfo />
-        <RecentWords />
+        {view === "saved" && (
+          <>
+            <SavedHeader />
+            <SavedSearchBar />
+            <WordClassesSaved />
+            <SavedWords
+              word="ephemeral"
+              wordClass="adjective"
+              pronounciation="/ɪˈfɛm.ər.əl/"
+              sentence="Lasting for a very short time; transitory in nature."
+              synonym="translent"
+              antonym="permanent"
+            />
+          </>
+        )}
+        {view === "recent" && (
+          <>
+            <RecentHeader />
+            <RecentInfo />
+            <RecentWords />
+          </>
+        )}
       </main>
     </>
   );

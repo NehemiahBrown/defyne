@@ -3,20 +3,20 @@ import heart from "../assets/heart.svg";
 import "../App.css";
 
 export default function WordInfo({ wordData, favoriteWord }) {
-  const wordClass = wordData?.[0]?.meanings;
-  const antonyms = wordData?.[0]?.meanings?.[0]?.antonyms;
-  const synonyms = wordData?.[0]?.meanings?.[0]?.synonyms;
-  const audioUrl = wordData?.[0]?.phonetics?.[0]?.audio;
+  const wordClasses = wordData.wordClasses;
+  const antonyms = wordData.antonyms;
+  const synonyms = wordData.synonyms;
+  const audioUrl = wordData.pronounciationAudio;
 
   function playPronounciation() {
-    const pronounciation = new Audio(audioUrl);
+    const pronounciation = new Audio(wordData.pronounciationAudio);
     pronounciation.play();
   }
 
   return (
-    <section className="bg-[var(--surface-color-light)] w-full my-8 p-4 border border-[var(--border-light)] rounded-lg">
+    <section className="bg-[var(--surface-color-light)] w-full min-w-0 my-8 p-4 border border-[var(--border-light)] rounded-lg">
       <div className="flex justify-between">
-        <h1 className="text-4xl font-bold">{wordData?.[0]?.word}</h1>
+        <h1 className="text-4xl font-bold">{wordData.word}</h1>
         <img
           onClick={favoriteWord}
           className="w-8 border border-[var(--border-light)] rounded-lg p-1"
@@ -25,10 +25,10 @@ export default function WordInfo({ wordData, favoriteWord }) {
         />
       </div>
       <p className="text-[var(--soft-text-light)]">
-        {wordData?.[0]?.phonetics?.[1]?.text}
+        {wordData.pronounciationText}
       </p>
       <div className="flex gap-2">
-        {wordClass?.slice(0, 3).map((word) => {
+        {wordClasses?.slice(0, 3).map((word, index) => {
           let wordClassName = "";
 
           if (word.partOfSpeech === "noun") {
@@ -47,7 +47,7 @@ export default function WordInfo({ wordData, favoriteWord }) {
           }
           return (
             <span
-              key={word.partOfSpeech}
+              key={`${word.partOfSpeech} - ${index}`}
               className={`${wordClassName} inline-block font-bold py-1 px-3 rounded-full mt-4`}
             >
               {word.partOfSpeech}
@@ -65,9 +65,9 @@ export default function WordInfo({ wordData, favoriteWord }) {
           <span>Play pronounciation</span>
         </button>
       )}
-      <p className="mt-4">{wordClass?.[0]?.definitions?.[0]?.definition}</p>
+      <p className="mt-4">{wordData.definition}</p>
       <p className="mt-2 italic font-bold text-[var(--soft-text-light)]">
-        {wordClass?.[0]?.definitions?.[0]?.example}
+        {wordData.sentence}
       </p>
       <div
         id="antonyms-synonyms"

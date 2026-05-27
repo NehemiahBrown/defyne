@@ -16,6 +16,9 @@ import RecentHeader from "./components/RecentHeader.jsx";
 import RecentInfo from "./components/RecentInfo.jsx";
 import RecentWords from "./components/RecentWords.jsx";
 
+import Footer from "./components/Footer.jsx";
+
+
 import recent from "./assets/recent.svg";
 import heart from "./assets/heart.svg";
 
@@ -72,7 +75,7 @@ function App() {
     <>
       <HomeHeader className="w-full" view={view} setView={setView} />
 
-      <main className="flex flex-col items-center px-4 w-full max-w-full">
+      <main className="flex flex-col flex-1 items-center px-4 w-full max-w-full">
         {view === "home" && (
           <>
             <SearchBar
@@ -125,6 +128,7 @@ function App() {
           </>
         )}
       </main>
+      <Footer />
     </>
   );
 }

@@ -7,7 +7,7 @@ export default function HomeHeader({ view, setView }) {
     <>
       <header className="flex justify-between items-center w-full bg-[var(--surface-color-light)] p-6 h-12">
         <div onClick={() => setView("home")}>
-          <a className="text-xl">defyne.</a>
+          <a className="text-xl">de<span className="text-[var(--primary-color-light)]">fyne</span></a>
         </div>
         <div className="flex gap-3">
           <img

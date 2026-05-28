@@ -14,7 +14,7 @@ export default function SavedSearchBar() {
           placeholder="Filter saved words"
         ></input>
         <img
-          className="w-8 border border-[var(--border-light)] rounded p-1"
+          className="w-8 border border-[var(--border-light)] rounded p-1 cursor-pointer"
           src={sort}
           alt="Sort saved words."
         />

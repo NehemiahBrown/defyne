@@ -107,7 +107,7 @@ function App() {
 
         {view === "saved" && (
           <>
-            <SavedHeader />
+            <SavedHeader savedWords={savedWords}/>
             <SavedSearchBar />
             <WordClassesSaved />
             <SavedWords savedWords={savedWords} />

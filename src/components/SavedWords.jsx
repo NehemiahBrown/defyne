@@ -7,6 +7,21 @@ export default function SavedWords({ savedWords }) {
     pronounciation.play();
   }
 
+  function classColor(partOfSpeech) {
+    switch (partOfSpeech) {
+      case "noun":
+        return "var(--wc-noun-text)";
+      case "verb":
+        return "var(--wc-verb-text)";
+      case "adjective":
+        return "var(--wc-adj-text)";
+      case "adverb":
+        return "var(--wc-adv-text)";
+      default:
+        return "var(--primary-color-light)";
+    }
+  }
+
   return (
     <>
       {savedWords.map((savedWord, index) => {
@@ -17,11 +32,13 @@ export default function SavedWords({ savedWords }) {
         const pronounciation = savedWord.pronounciationText;
         const word = savedWord.word;
         const sentence = savedWord.sentence;
+        const borderColor = classColor(wordClasses?.[0]?.partOfSpeech)
 
         return (
           <section
             key={`${word} - ${index}`}
-            className="bg-[var(--surface-color-light)] w-full my-4 p-4 border border-[var(--border-light)] border-l-[var(--primary-color-light)] border-l-3 rounded-lg"
+            style={{ borderLeftColor: borderColor }}
+            className={`bg-[var(--surface-color-light)] w-full my-4 p-4 border border-[var(--border-light)] border-l-3 rounded-lg`}
           >
             <div className="flex justify-between">
               <h2 className="text-xl font-bold">{word}</h2>

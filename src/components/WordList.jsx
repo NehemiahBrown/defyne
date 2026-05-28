@@ -13,7 +13,7 @@ export default function WordList({ title, icon, color, words }) {
               style={{ color: "var(--soft-text-light)" }}
               className="marker:text-[var(--marker-color)]"
             >
-              {word}
+              {word.word}
             </li>
           ))}
         </ul>

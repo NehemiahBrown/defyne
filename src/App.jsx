@@ -18,7 +18,6 @@ import RecentWords from "./components/RecentWords.jsx";
 
 import Footer from "./components/Footer.jsx";
 
-
 import recent from "./assets/recent.svg";
 import heart from "./assets/heart.svg";
 
@@ -30,7 +29,6 @@ function App() {
   const [recentWords, setRecentWords] = useState([]);
   const [savedWords, setSavedWords] = useState([]);
   const [view, setView] = useState("home");
-  const [wordObjects, setWordObjects] = useState([])
 
   function createWordObject(apiData) {
     return {
@@ -42,15 +40,12 @@ function App() {
       sentence: apiData?.[0]?.meanings?.[0]?.definitions?.[0]?.example,
       synonyms: apiData?.[0]?.meanings?.[0]?.synonyms || [],
       antonyms: apiData?.[0]?.meanings?.[0]?.antonyms || [],
+      searchedAt: Date.now(),
     };
   }
   function favoriteWord() {
-    setWordObjects((current) => {
-      return [...current, wordData]
-    })
-
     setSavedWords((current) => {
-      return [...current, wordData.word];
+      return [...current, wordData];
     });
   }
 
@@ -67,16 +62,14 @@ function App() {
       const result = await response.json();
       const usedWordData = createWordObject(result);
       setWordData(usedWordData);
-      console.log(usedWordData);
+
       setRecentWords((current) => {
-        return [homeSearchBar.toLowerCase(), ...current];
+        return [usedWordData, ...current];
       });
     } catch (error) {
       console.error(error.message);
     }
   }
-
-
 
   return (
     <>
@@ -91,7 +84,7 @@ function App() {
               searchWord={searchWord}
             />
             {wordData ? (
-              <WordInfo favoriteWord={favoriteWord} wordData={wordData}/>
+              <WordInfo favoriteWord={favoriteWord} wordData={wordData} />
             ) : (
               <WordPlaceholder />
             )}
@@ -117,16 +110,14 @@ function App() {
             <SavedHeader />
             <SavedSearchBar />
             <WordClassesSaved />
-            <SavedWords
-           wordObjects={wordObjects}
-            />
+            <SavedWords savedWords={savedWords} />
           </>
         )}
         {view === "recent" && (
           <>
             <RecentHeader />
-            <RecentInfo />
-            <RecentWords />
+            <RecentInfo recentWords={recentWords} />
+            <RecentWords recentWords={recentWords} />
           </>
         )}
       </main>

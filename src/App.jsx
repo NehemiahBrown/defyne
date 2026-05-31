@@ -29,6 +29,11 @@ function App() {
   const [recentWords, setRecentWords] = useState([]);
   const [savedWords, setSavedWords] = useState([]);
   const [view, setView] = useState("home");
+  const [lightMode, setLightMode] = useState(true);
+
+  function toggleTheme() {
+    setLightMode((mode) => !mode);
+  }
 
   function createWordObject(apiData) {
     return {
@@ -66,16 +71,28 @@ function App() {
       setRecentWords((current) => {
         return [usedWordData, ...current];
       });
+      setHomeSearchBar("");
     } catch (error) {
       console.error(error.message);
     }
   }
 
-  return (
-    <>
-      <HomeHeader className="w-full" view={view} setView={setView} />
+  function clearRecentWords() {
+    setRecentWords([]);
+  }
 
-      <main className="flex flex-col flex-1 items-center px-4 w-full max-w-full">
+  return (
+    <div
+      className={`${lightMode ? "" : "dark"} bg-[var(--background-color)] min-h-screen`}
+    >
+      <HomeHeader
+        className="w-full"
+        view={view}
+        setView={setView}
+        toggleTheme={toggleTheme}
+      />
+
+      <main className="flex flex-col flex-1 items-center px-4 w-full max-w-full bg-[var(--background-color)]">
         {view === "home" && (
           <>
             <SearchBar
@@ -92,13 +109,13 @@ function App() {
               <WordList
                 title="Recent"
                 icon={recent}
-                color="var(--primary-color-light)"
+                color="var(--primary-color)"
                 words={recentWords}
               />
               <WordList
                 title="Saved"
                 icon={heart}
-                color="var(--antonym-light)"
+                color="var(--antonym)"
                 words={savedWords}
               />
             </div>
@@ -107,7 +124,7 @@ function App() {
 
         {view === "saved" && (
           <>
-            <SavedHeader savedWords={savedWords}/>
+            <SavedHeader savedWords={savedWords} />
             <SavedSearchBar />
             <WordClassesSaved />
             <SavedWords savedWords={savedWords} />
@@ -116,13 +133,16 @@ function App() {
         {view === "recent" && (
           <>
             <RecentHeader />
-            <RecentInfo recentWords={recentWords} />
+            <RecentInfo
+              recentWords={recentWords}
+              clearRecentWords={clearRecentWords}
+            />
             <RecentWords recentWords={recentWords} />
           </>
         )}
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

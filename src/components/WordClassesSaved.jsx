@@ -1,10 +1,10 @@
 export default function WordClassesSaved() {
   return (
     <section className="w-full">
-      <hr className="border-[var(--border-light)] w-full" />
+      <hr className="border-[var(--border)] w-full" />
       <ul className="flex justify-start gap-3 my-4">
         <li>
-          <button className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 font-bold text-[var(--wc-default-text)] bg-[var(--wc-default-text)] cursor-pointer">
+          <button className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 font-bold text-[var(--wc-default-text)] bg-[var(--wc-default-bg)] cursor-pointer">
             All
           </button>
         </li>

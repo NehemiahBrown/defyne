@@ -2,16 +2,16 @@
 
 :root {
   /* Light Mode */
-  --background-color-light: #f4f6fa;
-  --surface-color-light: #ffffff;
-  --border-light: #e5e7eb;
-  --border-medium: #9ca3af;
-  --primary-text-light: #1c2b4a;
-  --secondary-text-light: #8a9ab8;
-  --soft-text-light: #6b7280;
-  --primary-color-light: #3b6fd8;
-  --secondary-color-light: #ebf0fc;
-  --antonym-light: #d83b3b;
+  --background-color: #f4f6fa;
+  --surface-color: rgb(255, 255, 255);
+  --border: rgba(229, 231, 235, 0.5);
+  --border-medium: rgba(156, 163, 175, 0.5);
+  --primary-text: #1c2b4a;
+  --secondary-text: #8a9ab8;
+  --soft-text: #6b7280;
+  --primary-color: #3b6fd8;
+  --secondary-color: #ebf0fc;
+  --antonym: #d83b3b;
   --search-bar: #30302e;
 
   --wc-adj-bg: #ebf0fc;
@@ -26,17 +26,35 @@
   --wc-int-text: #8a1a38;
   --wc-default-bg: #f4f6fa;
   --wc-default-text: #4a5a7a;
-
-  /* Dark Mode */
-  --background-color-dark: #0e0f1a;
-  --surface-color-dark: rgba(255, 255, 255, 0.05);
-  --border-dark: rgba(255, 255, 255, 0.1);
-  --primary-text-dark: #e8e6ff;
-  --secondary-text-dark: #5a5878;
-  --primary-color-dark: #9b7cf7;
-  --secondary-color-dark: #c4aaff;
-  --antonym-dark: #f77c9a;
 }
+
+.dark {
+  --background-color: #0e0f1a;
+  --surface-color: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.07);
+  --border-medium: rgba(255, 255, 255, 0.07);
+  --primary-text: #e8e6ff;
+  --secondary-text: #5a5878;
+  --soft-text: #7a7898;
+  --primary-color: #9b7cf7;
+  --secondary-color: rgba(155, 124, 247, 0.15);
+  --antonym: #f77c9a;
+  --search-bar: rgba(255, 255, 255, 0.06);
+
+  --wc-adj-bg: rgba(59, 111, 216, 0.15);
+  --wc-adj-text: #85b7eb;
+  --wc-noun-bg: rgba(232, 160, 32, 0.15);
+  --wc-noun-text: #fac775;
+  --wc-verb-bg: rgba(20, 184, 124, 0.15);
+  --wc-verb-text: #5ad8a0;
+  --wc-adv-bg: rgba(123, 92, 246, 0.15);
+  --wc-adv-text: #c4aaff;
+  --wc-int-bg: rgba(216, 59, 106, 0.15);
+  --wc-int-text: #f77c9a;
+  --wc-default-bg: rgba(255, 255, 255, 0.06);
+  --wc-default-text: #8a9ab8;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -44,20 +62,23 @@ html,
 body,
 #root {
   font-family: "Inter", sans-serif;
-  background-color: var(--background-color-light);
+  background-color: var(--background-color);
   width: 100%;
   min-height: 100%;
   margin: 0;
   padding: 0;
 }
 
-#root{
+#root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  
 }
 
 .wordClassName {
   background-color: #0e0f1a;
+}
+
+.dark .icon {
+  filter: brightness(0) invert(1);
 }

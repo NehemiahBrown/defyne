@@ -8,20 +8,20 @@ export default function SearchBar({
   return (
     <form
       onSubmit={searchWord}
-      className="flex w-full gap-2 bg-[var(--surface-color-light)] mt-8 p-4 border border-[var(--border-light)] rounded-lg"
+      className="flex w-full gap-2 bg-[var(--surface-color)] mt-8 p-4 border border-[var(--border)] rounded-lg"
       id="homeSearchBar"
       name="homeSearchBar"
     >
       <img
         onClick={searchWord}
-        className="cursor-pointer hover:scale-115 active:scale-115"
+        className="icon cursor-pointer hover:scale-115 active:scale-115"
         src={search}
         alt="Search a word."
       />
       <input
         type="text"
         placeholder="Search a word..."
-        className="text-[var(--primary-text-dark)] w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-light-text)] placeholder:text-[var(--secondary-text-light)] p-2"
+        className="text-[var(--primary-text)] w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-text)] placeholder:text-[var(--secondary-text)] p-2"
         value={homeSearchBar}
         onChange={(e) => setHomeSearchBar(e.target.value)}
       ></input>

@@ -25,11 +25,21 @@ import heart from "./assets/heart.svg";
 
 function App() {
   const [homeSearchBar, setHomeSearchBar] = useState("");
+  const [savedSearchBar, setSavedSearchBar] = useState("");
   const [wordData, setWordData] = useState(null);
   const [recentWords, setRecentWords] = useState([]);
   const [savedWords, setSavedWords] = useState([]);
   const [view, setView] = useState("home");
   const [lightMode, setLightMode] = useState(true);
+  const filteredSavedWords = savedWords.filter((savedWord) => {
+    return savedWord.word.toLowerCase().includes(savedSearchBar.toLowerCase());
+  });
+
+  function reverseSavedWords() {
+    const reversed = [...savedWords];
+    reversed.reverse();
+    setSavedWords(reversed);
+  }
 
   function toggleTheme() {
     setLightMode((mode) => !mode);
@@ -83,7 +93,7 @@ function App() {
 
   return (
     <div
-      className={`${lightMode ? "" : "dark"} bg-[var(--background-color)] min-h-screen`}
+      className={`${lightMode ? "" : "dark"} flex flex-col flex-1 bg-[var(--background-color)] min-h-screen`}
     >
       <HomeHeader
         className="w-full"
@@ -124,10 +134,14 @@ function App() {
 
         {view === "saved" && (
           <>
-            <SavedHeader savedWords={savedWords} />
-            <SavedSearchBar />
+            <SavedHeader savedWords={filteredSavedWords} />
+            <SavedSearchBar
+              savedSearchBar={savedSearchBar}
+              setSavedSearchBar={setSavedSearchBar}
+              reverseSavedWords={reverseSavedWords}
+            />
             <WordClassesSaved />
-            <SavedWords savedWords={savedWords} />
+            <SavedWords savedWords={filteredSavedWords} />
           </>
         )}
         {view === "recent" && (

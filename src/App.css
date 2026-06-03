@@ -13,6 +13,7 @@
   --secondary-color: #ebf0fc;
   --antonym: #d83b3b;
   --search-bar: #30302e;
+  --input-text: #f2f0ef;
 
   --wc-adj-bg: #ebf0fc;
   --wc-adj-text: #185fa5;
@@ -40,6 +41,7 @@
   --secondary-color: rgba(155, 124, 247, 0.15);
   --antonym: #f77c9a;
   --search-bar: rgba(255, 255, 255, 0.06);
+  --input-text: #f2f0ef;
 
   --wc-adj-bg: rgba(59, 111, 216, 0.15);
   --wc-adj-text: #85b7eb;

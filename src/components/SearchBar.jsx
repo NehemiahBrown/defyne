@@ -21,7 +21,7 @@ export default function SearchBar({
       <input
         type="text"
         placeholder="Search a word..."
-        className="text-[var(--primary-text)] w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-text)] placeholder:text-[var(--secondary-text)] p-2"
+        className="text-[var(--input-text)] w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-text)] placeholder:text-[var(--secondary-text)] p-2"
         value={homeSearchBar}
         onChange={(e) => setHomeSearchBar(e.target.value)}
       ></input>

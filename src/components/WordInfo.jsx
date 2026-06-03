@@ -12,7 +12,6 @@ export default function WordInfo({ wordData, favoriteWord }) {
   const uniqueWordClassArray = [
     ...new Set(wordClasses.map((word) => word.partOfSpeech)),
   ].slice(0, 3);
-  console.log(uniqueWordClassArray);
 
   function playPronounciation() {
     const pronounciation = new Audio(audioUrl);

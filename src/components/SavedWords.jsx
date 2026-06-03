@@ -1,5 +1,4 @@
 import play from "../assets/playSaved.svg";
-import heart from "../assets/blueheart.svg";
 
 export default function SavedWords({ savedWords }) {
   function playPronounciation(audioUrl) {

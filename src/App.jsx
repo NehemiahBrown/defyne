@@ -111,7 +111,7 @@ function App() {
               searchWord={searchWord}
             />
             {wordData ? (
-              <WordInfo favoriteWord={favoriteWord} wordData={wordData} />
+              <WordInfo favoriteWord={favoriteWord} wordData={wordData} lightMode={lightMode}/>
             ) : (
               <WordPlaceholder />
             )}
@@ -146,7 +146,7 @@ function App() {
         )}
         {view === "recent" && (
           <>
-            <RecentHeader />
+            <RecentHeader recentWords={recentWords}/>
             <RecentInfo
               recentWords={recentWords}
               clearRecentWords={clearRecentWords}

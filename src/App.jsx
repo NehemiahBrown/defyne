@@ -151,7 +151,11 @@ function App() {
               searchWord={searchWord}
             />
             {wordData ? (
-              <WordInfo favoriteWord={favoriteWord} wordData={wordData} />
+              <WordInfo
+                favoriteWord={favoriteWord}
+                wordData={wordData}
+                lightMode={lightMode}
+              />
             ) : (
               <WordPlaceholder />
             )}

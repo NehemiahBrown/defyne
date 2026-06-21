@@ -2,7 +2,7 @@ export default function WordList({ title, icon, color, words }) {
   return (
     <section className="bg-[var(--surface-color)] w-full min-w-0 flex-1 p-4 border border-[var(--border)] rounded-lg">
       <div className="flex flex-start gap-2">
-        <img src={icon} className="w-4" />
+        <img src={icon} className="w-4 icon" />
         <h2 className="font-bold text-[var(--primary-color)]">{title}</h2>
       </div>
       <div>

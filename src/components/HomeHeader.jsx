@@ -22,13 +22,13 @@ export default function HomeHeader({ view, setView, toggleTheme }) {
         </div>
         <div className="flex gap-3">
           <img
-            className="icon w-8 border border-[var(--border)] rounded-lg p-1 cursor-pointer"
+            className="icon w-8 border border-[var(--border)] rounded-lg p-1 hover:scale-90 active:opacity-30 cursor-pointer"
             src={heart}
             alt="Favorite a word"
             onClick={() => setView("saved")}
           />
           <img
-            className="icon w-8 border border-[var(--border)] rounded-lg p-1 cursor-pointer"
+            className="icon w-8 border border-[var(--border)] rounded-lg p-1 hover:scale-90 active:opacity-30 cursor-pointer"
             src={recent}
             alt="Recent searches"
             onClick={() => setView("recent")}
@@ -38,7 +38,7 @@ export default function HomeHeader({ view, setView, toggleTheme }) {
               toggleImg();
               toggleTheme();
             }}
-            className="icon w-8 border border-[var(--border)] rounded-lg p-1 cursor-pointer"
+            className="icon w-8 border border-[var(--border)] rounded-lg p-1 hover:scale-90 active:opacity-30 cursor-pointer"
             src={isLightImg ? `${sun}` : `${moon}`}
             alt="Dark mode"
           />

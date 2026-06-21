@@ -14,7 +14,7 @@ export default function SearchBar({
     >
       <img
         onClick={searchWord}
-        className="icon cursor-pointer hover:scale-115 active:scale-115"
+        className="icon cursor-pointer hover:scale-115 active:opacity-30"
         src={search}
         alt="Search a word."
       />

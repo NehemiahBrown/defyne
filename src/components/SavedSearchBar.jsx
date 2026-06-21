@@ -24,16 +24,16 @@ export default function SavedSearchBar({
     <Fragment>
       <hr className="border-[var(--border)] w-full" />
       <form className="flex w-full gap-2 bg-[var(--surface-color)] my-4 p-4 border border-[var(--border)] rounded-lg">
-        <img className="icon" src={search} alt="Search a saved word." />
+        <img className="icon hover:scale-115 active:opacity-30 cursor-pointer" src={search} alt="Search a saved word." />
         <input
-          className=" text-[var(--primary-text-dark)] w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-text)] placeholder:text-[var(--secondary-text)] p-2"
+          className=" text-[var(--input-text)] w-full bg-[var(--search-bar)] rounded border border-[var(--secondary-text)] placeholder:text-[var(--secondary-text)] p-2"
           type="text"
           value={savedSearchBar}
           placeholder="Filter saved words"
           onChange={handleSavedSearchChange}
         ></input>
         <img
-          className="icon w-8 border border-[var(--border)] rounded p-1 cursor-pointer"
+          className="icon w-8 border border-[var(--border)] rounded p-1 hover:scale-90 active:opacity-30 cursor-pointer"
           src={sort}
           alt="Sort saved words."
           onClick={reverseSavedWords}

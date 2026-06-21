@@ -25,7 +25,7 @@ export default function WordInfo({ wordData, favoriteWord }) {
           {word}
         </h1>
         <button
-          className="icon w-8 border border-[var(--border)] rounded-lg p-1 cursor-pointer hover:scale-115"
+          className="icon w-8 border border-[var(--border)] rounded-lg p-1 cursor-pointer hover:scale-90 active:opacity-30"
           onClick={favoriteWord}
         >
           <img src={heart} alt="Favorite a word." />
@@ -66,7 +66,7 @@ export default function WordInfo({ wordData, favoriteWord }) {
       {audioUrl && (
         <button
           onClick={playPronounciation}
-          className="flex gap-2 px-3 py-2 mt-4 border border-[var(--border-medium)] rounded-lg hover:scale-115 cursor-pointer"
+          className="flex gap-2 px-3 py-2 mt-4 border border-[var(--border-medium)] rounded-lg hover:scale-105 active:opacity-30 cursor-pointer"
         >
           <img
             src={play}

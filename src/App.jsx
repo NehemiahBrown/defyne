@@ -31,9 +31,38 @@ function App() {
   const [savedWords, setSavedWords] = useState([]);
   const [view, setView] = useState("home");
   const [lightMode, setLightMode] = useState(true);
-  const filteredSavedWords = savedWords.filter((savedWord) => {
-    return savedWord.word.toLowerCase().includes(savedSearchBar.toLowerCase());
-  });
+  const [selectedWordClass, setSelectedWordClass] = useState("");
+  const [activeFilter, setActiveFilter] = useState("");
+
+  let visibleSavedWords = savedWords;
+
+  if (activeFilter === "search") {
+    visibleSavedWords = savedWords.filter((savedWord) => {
+      return savedWord.word
+        .toLowerCase()
+        .includes(savedSearchBar.toLowerCase());
+    });
+  }
+
+  if (activeFilter === "class") {
+    visibleSavedWords = savedWords.filter((savedWord) => {
+      return savedWord.wordClasses[0]?.partOfSpeech === selectedWordClass;
+    });
+  }
+
+  function filterSavedWordClass(e) {
+    const buttonWordClass = e.target.value;
+
+    if (buttonWordClass === "") {
+      setSelectedWordClass("");
+      setSavedSearchBar("");
+      setActiveFilter("");
+    } else {
+      setSelectedWordClass(buttonWordClass);
+      setSavedSearchBar("");
+      setActiveFilter("class");
+    }
+  }
 
   function reverseSavedWords() {
     const reversed = [...savedWords];
@@ -60,6 +89,13 @@ function App() {
   }
   function favoriteWord() {
     setSavedWords((current) => {
+      const storedSavedWord = current.some((item) => {
+        return item.word.toLowerCase() === wordData.word.toLowerCase();
+      });
+      if (storedSavedWord) {
+        return current;
+      }
+
       return [...current, wordData];
     });
   }
@@ -79,8 +115,12 @@ function App() {
       setWordData(usedWordData);
 
       setRecentWords((current) => {
-        return [usedWordData, ...current];
+        const filteredRecentWords = current.filter((item) => {
+          return item.word.toLowerCase() !== usedWordData.word.toLowerCase();
+        });
+        return [usedWordData, ...filteredRecentWords];
       });
+
       setHomeSearchBar("");
     } catch (error) {
       console.error(error.message);
@@ -134,19 +174,21 @@ function App() {
 
         {view === "saved" && (
           <>
-            <SavedHeader savedWords={filteredSavedWords} />
+            <SavedHeader savedWords={visibleSavedWords} />
             <SavedSearchBar
               savedSearchBar={savedSearchBar}
               setSavedSearchBar={setSavedSearchBar}
               reverseSavedWords={reverseSavedWords}
+              setSelectedWordClass={setSelectedWordClass}
+              setActiveFilter={setActiveFilter}
             />
-            <WordClassesSaved />
-            <SavedWords savedWords={filteredSavedWords} />
+            <WordClassesSaved filterSavedWordClass={filterSavedWordClass} />
+            <SavedWords savedWords={visibleSavedWords} />
           </>
         )}
         {view === "recent" && (
           <>
-            <RecentHeader />
+            <RecentHeader recentWords={recentWords} />
             <RecentInfo
               recentWords={recentWords}
               clearRecentWords={clearRecentWords}

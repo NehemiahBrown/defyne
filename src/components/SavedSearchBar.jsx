@@ -6,7 +6,20 @@ export default function SavedSearchBar({
   savedSearchBar,
   setSavedSearchBar,
   reverseSavedWords,
+  setSelectedWordClass,
+  setActiveFilter,
 }) {
+  function handleSavedSearchChange(e) {
+    setSavedSearchBar(e.target.value);
+    setSelectedWordClass("");
+
+    if (e.target.value === "") {
+      setActiveFilter("");
+    } else {
+      setActiveFilter("search");
+    }
+  }
+
   return (
     <Fragment>
       <hr className="border-[var(--border)] w-full" />
@@ -17,7 +30,7 @@ export default function SavedSearchBar({
           type="text"
           value={savedSearchBar}
           placeholder="Filter saved words"
-          onChange={(e) => setSavedSearchBar(e.target.value)}
+          onChange={handleSavedSearchChange}
         ></input>
         <img
           className="icon w-8 border border-[var(--border)] rounded p-1 cursor-pointer"

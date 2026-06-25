@@ -10,12 +10,12 @@ export default function WordClassesSaved({
       <hr className="border-[var(--border)] w-full" />
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <ul className="flex flex-wrap justify-start gap-3 my-4">
+          <ul className="flex flex-wrap gap-3 my-4">
             <li>
               <button
                 value=""
                 onClick={filterSavedWordClass}
-                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 font-bold text-[var(--wc-default-text)] bg-[var(--wc-default-bg)] cursor-pointer"
+                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 text-sm font-bold text-[var(--wc-default-text)] bg-[var(--wc-default-bg)] cursor-pointer"
               >
                 All
               </button>
@@ -24,7 +24,7 @@ export default function WordClassesSaved({
               <button
                 value="noun"
                 onClick={filterSavedWordClass}
-                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 font-bold text-[var(--wc-noun-text)] bg-[var(--wc-noun-bg)] cursor-pointer"
+                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 text-sm font-bold text-[var(--wc-noun-text)] bg-[var(--wc-noun-bg)] cursor-pointer"
               >
                 Noun
               </button>
@@ -33,7 +33,7 @@ export default function WordClassesSaved({
               <button
                 value="verb"
                 onClick={filterSavedWordClass}
-                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 font-bold text-[var(--wc-verb-text)] bg-[var(--wc-verb-bg)] cursor-pointer"
+                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 text-sm font-bold text-[var(--wc-verb-text)] bg-[var(--wc-verb-bg)] cursor-pointer"
               >
                 Verb
               </button>
@@ -42,7 +42,7 @@ export default function WordClassesSaved({
               <button
                 value="adjective"
                 onClick={filterSavedWordClass}
-                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 font-bold text-[var(--wc-adj-text)] bg-[var(--wc-adj-bg)] cursor-pointer"
+                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 text-sm font-bold text-[var(--wc-adj-text)] bg-[var(--wc-adj-bg)] cursor-pointer"
               >
                 Adjective
               </button>
@@ -51,7 +51,7 @@ export default function WordClassesSaved({
               <button
                 value="adverb"
                 onClick={filterSavedWordClass}
-                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 font-bold text-[var(--wc-adv-text)] bg-[var(--wc-adv-bg)] cursor-pointer"
+                className="border border-[var(--border-medium)] rounded-xl py-[0.2rem] px-2 text-sm font-bold text-[var(--wc-adv-text)] bg-[var(--wc-adv-bg)] cursor-pointer"
               >
                 Adverb
               </button>

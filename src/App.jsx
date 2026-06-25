@@ -1,6 +1,8 @@
 import "./App.css";
 import { auth } from "./firebase";
-import { signInAnonymously } from "firebase/auth"
+import { signInAnonymously } from "firebase/auth";
+import { db } from "./firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 
 import HomeHeader from "./components/HomeHeader.jsx";
@@ -28,6 +30,7 @@ import heart from "./assets/heart.svg";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [hasLoadedSavedWords, setHasLoadedSavedWords] = useState(false);
   const [homeSearchBar, setHomeSearchBar] = useState("");
   const [savedSearchBar, setSavedSearchBar] = useState("");
   const [wordData, setWordData] = useState(null);
@@ -40,17 +43,17 @@ function App() {
 
   let visibleSavedWords = savedWords;
 
-  useEffect(() =>{
+  useEffect(() => {
     signInAnonymously(auth)
-    .then((response) => {
-      console.log(response.user.uid);
-      setUser(response.user)
-      setLoading(false)
-    }).catch((error) => {
-      console.log(error.message)
-      setLoading(false)
-    })
-  },[])
+      .then((response) => {
+        setUser(response.user);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoading(false);
+      });
+  }, []);
 
   if (activeFilter === "search") {
     visibleSavedWords = savedWords.filter((savedWord) => {
@@ -62,7 +65,7 @@ function App() {
 
   if (activeFilter === "class") {
     visibleSavedWords = savedWords.filter((savedWord) => {
-      return savedWord.wordClasses[0]?.partOfSpeech === selectedWordClass;
+      return savedWord.wordClasses?.[0]?.partOfSpeech === selectedWordClass;
     });
   }
 
@@ -92,14 +95,15 @@ function App() {
 
   function createWordObject(apiData) {
     return {
-      word: apiData?.[0]?.word,
-      pronounciationText: apiData?.[0]?.phonetics?.[0]?.text,
-      wordClasses: apiData?.[0]?.meanings || [],
-      pronounciationAudio: apiData?.[0]?.phonetics?.[0]?.audio,
-      definition: apiData?.[0]?.meanings?.[0]?.definitions?.[0]?.definition,
-      sentence: apiData?.[0]?.meanings?.[0]?.definitions?.[0]?.example,
-      synonyms: apiData?.[0]?.meanings?.[0]?.synonyms || [],
-      antonyms: apiData?.[0]?.meanings?.[0]?.antonyms || [],
+      word: apiData?.[0]?.word || null,
+      pronounciationText: apiData?.[0]?.phonetics?.[0]?.text || null,
+      wordClasses: apiData?.[0]?.meanings || null,
+      pronounciationAudio: apiData?.[0]?.phonetics?.[0]?.audio || null,
+      definition:
+        apiData?.[0]?.meanings?.[0]?.definitions?.[0]?.definition || null,
+      sentence: apiData?.[0]?.meanings?.[0]?.definitions?.[0]?.example || null,
+      synonyms: apiData?.[0]?.meanings?.[0]?.synonyms || null,
+      antonyms: apiData?.[0]?.meanings?.[0]?.antonyms || null,
       searchedAt: Date.now(),
     };
   }
@@ -115,6 +119,50 @@ function App() {
       return [...current, wordData];
     });
   }
+
+  async function saveSavedWords() {
+    if (!user) return;
+    if (savedWords.length === 0) return;
+
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        savedWords: savedWords,
+      });
+      console.log("Saved word");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (user && hasLoadedSavedWords) {
+      saveSavedWords();
+    }
+  }, [savedWords, user, hasLoadedSavedWords]);
+
+  async function loadSavedWords() {
+    if (!user) return;
+
+    try {
+      const docSnap = await getDoc(doc(db, "users", user.uid));
+
+      if (docSnap.exists()) {
+        setSavedWords(docSnap.data().savedWords || []);
+        setHasLoadedSavedWords(true);
+        console.log("Loaded saved words");
+      } else {
+        setHasLoadedSavedWords(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      loadSavedWords();
+    }
+  }, [user]);
 
   async function searchWord(e) {
     e.preventDefault();
@@ -145,6 +193,9 @@ function App() {
 
   function clearRecentWords() {
     setRecentWords([]);
+  }
+  function clearSavedWords() {
+    setSavedWords([]);
   }
 
   return (
@@ -202,7 +253,11 @@ function App() {
               setSelectedWordClass={setSelectedWordClass}
               setActiveFilter={setActiveFilter}
             />
-            <WordClassesSaved filterSavedWordClass={filterSavedWordClass} />
+            <WordClassesSaved
+              savedWords={savedWords}
+              clearSavedWords={clearSavedWords}
+              filterSavedWordClass={filterSavedWordClass}
+            />
             <SavedWords savedWords={visibleSavedWords} />
           </>
         )}

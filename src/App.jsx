@@ -123,7 +123,6 @@ function App() {
 
   async function saveSavedWords() {
     if (!user) return;
-    if (savedWords.length === 0) return;
 
     try {
       await setDoc(
@@ -139,8 +138,6 @@ function App() {
 
   async function saveRecentWords() {
     if (!user) return;
-    if (recentWords.length === 0) return;
-
     try {
       await setDoc(
         doc(db, "users", user.uid),
@@ -242,6 +239,42 @@ function App() {
     setSavedWords([]);
   }
 
+  function deleteRecentWord(word) {
+    setRecentWords((current) => {
+      return current.filter((wordObject) => {
+        return wordObject.word !== word;
+      });
+    });
+  }
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[var(--background-color)]">
+        <div className="animate-bounce text-7xl">📖</div>
+
+        <h2 className="mt-6 text-2xl font-bold text-[var(--primary-color)]">
+          Opening Defyne...
+        </h2>
+
+        <p className="mt-2 text-[var(--primary-text)]">
+          Loading your dictionary
+        </p>
+
+        <div className="flex gap-2 mt-6">
+          <span className="w-2 h-2 rounded-full bg-[var(--primary-color)] animate-pulse"></span>
+          <span
+            className="w-2 h-2 rounded-full bg-[var(--primary-color)] animate-pulse"
+            style={{ animationDelay: "150ms" }}
+          ></span>
+          <span
+            className="w-2 h-2 rounded-full bg-[var(--primary-color)] animate-pulse"
+            style={{ animationDelay: "300ms" }}
+          ></span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`${lightMode ? "" : "dark"} flex flex-col flex-1 bg-[var(--background-color)] min-h-screen`}
@@ -312,7 +345,10 @@ function App() {
               recentWords={recentWords}
               clearRecentWords={clearRecentWords}
             />
-            <RecentWords recentWords={recentWords} />
+            <RecentWords
+              recentWords={recentWords}
+              deleteRecentWord={deleteRecentWord}
+            />
           </>
         )}
       </main>

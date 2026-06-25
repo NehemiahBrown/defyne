@@ -1,5 +1,7 @@
 import "./App.css";
-import { useState } from "react";
+import { auth } from "./firebase";
+import { signInAnonymously } from "firebase/auth"
+import { useState, useEffect } from "react";
 
 import HomeHeader from "./components/HomeHeader.jsx";
 import SearchBar from "./components/SearchBar.jsx";
@@ -24,6 +26,8 @@ import heart from "./assets/heart.svg";
 // Variables
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [homeSearchBar, setHomeSearchBar] = useState("");
   const [savedSearchBar, setSavedSearchBar] = useState("");
   const [wordData, setWordData] = useState(null);
@@ -35,6 +39,18 @@ function App() {
   const [activeFilter, setActiveFilter] = useState("");
 
   let visibleSavedWords = savedWords;
+
+  useEffect(() =>{
+    signInAnonymously(auth)
+    .then((response) => {
+      console.log(response.user.uid);
+      setUser(response.user)
+      setLoading(false)
+    }).catch((error) => {
+      console.log(error.message)
+      setLoading(false)
+    })
+  },[])
 
   if (activeFilter === "search") {
     visibleSavedWords = savedWords.filter((savedWord) => {

@@ -299,6 +299,7 @@ function App() {
                 favoriteWord={favoriteWord}
                 wordData={wordData}
                 lightMode={lightMode}
+                savedWords={savedWords}
               />
             ) : (
               <WordPlaceholder />

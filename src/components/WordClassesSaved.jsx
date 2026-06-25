@@ -8,9 +8,9 @@ export default function WordClassesSaved({
   return (
     <section className="w-full">
       <hr className="border-[var(--border)] w-full" />
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <ul className="flex justify-start gap-3 my-4">
+          <ul className="flex flex-wrap justify-start gap-3 my-4">
             <li>
               <button
                 value=""
@@ -58,11 +58,11 @@ export default function WordClassesSaved({
             </li>
           </ul>
         </div>
-        <div>
+        <div className="w-full sm:w-auto sm:ml-auto">
           {savedWords.length > 0 && (
             <button
               onClick={clearSavedWords}
-              className="flex gap-1 text-white font-bold bg-[var(--antonym)]/30 py-1 px-3 rounded-lg border border-[var(--antonym)] cursor-pointer"
+              className="flex items-center justify-center gap-1 w-full sm:w-auto whitespace-nowrap text-white font-bold bg-[var(--antonym)]/30 py-2 px-3 rounded-lg border border-[var(--antonym)] cursor-pointer"
             >
               <img src={deleteSaved} alt="Delete button." />
               Clear All

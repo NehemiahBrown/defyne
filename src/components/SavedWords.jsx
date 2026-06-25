@@ -73,17 +73,17 @@ export default function SavedWords({ savedWords }) {
                 </p>
               )}
             </div>
-            <div className="flex justify-between align-center mt-4">
+            <div className="flex flex-col gap-3 mt-4">
               <p className="text-[var(--primary-text)]">{sentence}</p>
               {synonyms.length > 0 || antonyms.length > 0 ? (
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2 items-start">
                   {synonyms.length > 0 && (
-                    <span className="text-[var(--primary-color)] font-bold text-xs text-[var(--primary-color)] bg-[var(--secondary-text)]/30 py-1 px-3 rounded-lg border border-[var(--secondary-text)]">
+                    <span className="inline-flex w-fit text-[var(--primary-color)] font-bold text-xs text-[var(--primary-color)] bg-[var(--secondary-text)]/30 py-1 px-3 rounded-lg border border-[var(--secondary-text)]">
                       {synonyms?.[0]}
                     </span>
                   )}
                   {antonyms.length > 0 && (
-                    <span className="text-[var(--antonym)] font-bold text-xs text-[var(--antonym)] bg-[var(--antonym)]/30 py-1 px-3 rounded-lg border border-[var(--antonym)]">
+                    <span className="inline-flex w-fit text-[var(--antonym)] font-bold text-xs text-[var(--antonym)] bg-[var(--antonym)]/30 py-1 px-3 rounded-lg border border-[var(--antonym)]">
                       {antonyms?.[0]}
                     </span>
                   )}

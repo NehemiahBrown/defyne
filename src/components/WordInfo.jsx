@@ -1,13 +1,18 @@
 import play from "../assets/play.svg";
 import heart from "../assets/heart.svg";
+import heartFilled from "../assets/heartfilled.svg";
 import "../App.css";
 
-export default function WordInfo({ wordData, favoriteWord }) {
+export default function WordInfo({ wordData, favoriteWord, savedWords }) {
   const wordClasses = wordData.wordClasses;
   const antonyms = wordData.antonyms;
   const synonyms = wordData.synonyms;
   const audioUrl = wordData.pronounciationAudio;
   const word = wordData.word;
+
+  const isSaved = savedWords.some((savedWord) => {
+    return savedWord.word.toLowerCase() === word.toLowerCase();
+  });
 
   const uniqueWordClassArray = [
     ...new Set(wordClasses.map((word) => word.partOfSpeech)),
@@ -28,7 +33,7 @@ export default function WordInfo({ wordData, favoriteWord }) {
           className="icon w-8 border border-[var(--border)] rounded-lg p-1 cursor-pointer hover:scale-90 active:opacity-30"
           onClick={favoriteWord}
         >
-          <img src={heart} alt="Favorite a word." />
+          <img src={isSaved ? heartFilled : heart} alt="Favorite a word." />
         </button>
       </div>
       <p className="mt-2 text-[var(--primary-text)]">

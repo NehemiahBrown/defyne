@@ -4,7 +4,7 @@ A modern dictionary web application built with React, Tailwind CSS, Firebase, an
 
 ## Live Demo
 
-🔗 Live Site:
+🔗 Live Site: https://defyne-d9c50.web.app/
 
 ## Screenshots
 

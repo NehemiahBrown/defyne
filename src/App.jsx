@@ -31,6 +31,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hasLoadedSavedWords, setHasLoadedSavedWords] = useState(false);
+  const [hasLoadedRecentWords, setHasLoadedRecentWords] = useState(false);
   const [homeSearchBar, setHomeSearchBar] = useState("");
   const [savedSearchBar, setSavedSearchBar] = useState("");
   const [wordData, setWordData] = useState(null);
@@ -125,10 +126,28 @@ function App() {
     if (savedWords.length === 0) return;
 
     try {
-      await setDoc(doc(db, "users", user.uid), {
-        savedWords: savedWords,
-      });
+      await setDoc(
+        doc(db, "users", user.uid),
+        { savedWords: savedWords },
+        { merge: true },
+      );
       console.log("Saved word");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function saveRecentWords() {
+    if (!user) return;
+    if (recentWords.length === 0) return;
+
+    try {
+      await setDoc(
+        doc(db, "users", user.uid),
+        { recentWords: recentWords },
+        { merge: true },
+      );
+      console.log("Recent word");
     } catch (error) {
       console.log(error);
     }
@@ -139,6 +158,12 @@ function App() {
       saveSavedWords();
     }
   }, [savedWords, user, hasLoadedSavedWords]);
+
+  useEffect(() => {
+    if (user && hasLoadedRecentWords) {
+      saveRecentWords();
+    }
+  }, [recentWords, user, hasLoadedRecentWords]);
 
   async function loadSavedWords() {
     if (!user) return;
@@ -158,9 +183,28 @@ function App() {
     }
   }
 
+  async function loadRecentWords() {
+    if (!user) return;
+
+    try {
+      const docSnap = await getDoc(doc(db, "users", user.uid));
+
+      if (docSnap.exists()) {
+        setRecentWords(docSnap.data().recentWords || []);
+        setHasLoadedRecentWords(true);
+        console.log("Loaded Recent words");
+      } else {
+        setHasLoadedRecentWords(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     if (user) {
       loadSavedWords();
+      loadRecentWords();
     }
   }, [user]);
 
